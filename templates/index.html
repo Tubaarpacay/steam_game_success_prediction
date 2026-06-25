@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Success Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main class="page">
+        <section class="hero">
+
+            <div class="hero-text">
+                <span class="badge">Machine Learning Project</span>
+
+                <h1>Steam Success Predictor</h1>
+
+                <p>
+                    Estimate whether a Steam game is likely to be successful using
+                    game metadata, playtime statistics, store page quality and SteamSpy tag features.
+                </p>
+
+                <div class="stats">
+                    <div>
+                        <strong>27K+</strong>
+                        <span>Steam Games</span>
+                    </div>
+
+                    <div>
+                        <strong>60+</strong>
+                        <span>Model Features</span>
+                    </div>
+
+                    <div>
+                        <strong>68%</strong>
+                        <span>Realistic Accuracy</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="model-card">
+                <h2>Prediction Form</h2>
+
+                <p class="small-text">
+                    Fill in the game information below to estimate its success class.
+                </p>
+
+                <form method="POST">
+
+                    <h3>Basic Game Information</h3>
+
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label>Price</label>
+                            <input type="number" step="any" name="price" placeholder="Example: 19.99" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Achievements</label>
+                            <input type="number" step="any" name="achievements" placeholder="Example: 45" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Average Playtime</label>
+                            <input type="number" step="any" name="average_playtime" placeholder="Example: 1200" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Median Playtime</label>
+                            <input type="number" step="any" name="median_playtime" placeholder="Example: 900" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Required Age</label>
+                            <input type="number" step="any" name="required_age" placeholder="Example: 0" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Release Year</label>
+                            <input type="number" step="any" name="release_year" placeholder="Example: 2024" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>English Support</label>
+                            <select name="english" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Windows Support</label>
+                            <select name="windows" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Mac Support</label>
+                            <select name="mac" required>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Linux Support</label>
+                            <select name="linux" required>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <h3>Store Page Information</h3>
+
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label>Screenshot Count</label>
+                            <input type="number" step="any" name="screenshot_count" placeholder="Example: 8" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Movie / Trailer Count</label>
+                            <input type="number" step="any" name="movie_count" placeholder="Example: 2" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Category Count</label>
+                            <input type="number" step="any" name="category_count" placeholder="Example: 5" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Genre Count</label>
+                            <input type="number" step="any" name="genre_count" placeholder="Example: 3" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Steam Tag Count</label>
+                            <input type="number" step="any" name="steamspy_tag_count" placeholder="Example: 8" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Short Description Length</label>
+                            <input type="number" step="any" name="short_description_length" placeholder="Example: 180" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>About Game Length</label>
+                            <input type="number" step="any" name="about_game_length" placeholder="Example: 1200" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Detailed Description Length</label>
+                            <input type="number" step="any" name="detailed_description_length" placeholder="Example: 1800" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Minimum Requirements Length</label>
+                            <input type="number" step="any" name="minimum_req_length" placeholder="Example: 350" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Recommended Requirements Length</label>
+                            <input type="number" step="any" name="recommended_req_length" placeholder="Example: 300" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Website Available</label>
+                            <select name="has_website" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Support URL Available</label>
+                            <select name="has_support_url" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Support Email Available</label>
+                            <select name="has_support_email" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <h3>Game Tags</h3>
+
+                    <div class="tag-grid">
+                        <label><input type="checkbox" name="action" value="1"> Action</label>
+                        <label><input type="checkbox" name="adventure" value="1"> Adventure</label>
+                        <label><input type="checkbox" name="rpg" value="1"> RPG</label>
+                        <label><input type="checkbox" name="indie" value="1"> Indie</label>
+                        <label><input type="checkbox" name="strategy" value="1"> Strategy</label>
+                        <label><input type="checkbox" name="simulation" value="1"> Simulation</label>
+                        <label><input type="checkbox" name="casual" value="1"> Casual</label>
+                        <label><input type="checkbox" name="sports" value="1"> Sports</label>
+                        <label><input type="checkbox" name="racing" value="1"> Racing</label>
+                        <label><input type="checkbox" name="multiplayer" value="1"> Multiplayer</label>
+                        <label><input type="checkbox" name="singleplayer" value="1"> Singleplayer</label>
+                        <label><input type="checkbox" name="horror" value="1"> Horror</label>
+                        <label><input type="checkbox" name="survival" value="1"> Survival</label>
+                        <label><input type="checkbox" name="zombies" value="1"> Zombies</label>
+                        <label><input type="checkbox" name="open_world" value="1"> Open World</label>
+                        <label><input type="checkbox" name="platformer" value="1"> Platformer</label>
+                        <label><input type="checkbox" name="puzzle" value="1"> Puzzle</label>
+                        <label><input type="checkbox" name="shooter" value="1"> Shooter</label>
+                        <label><input type="checkbox" name="anime" value="1"> Anime</label>
+                        <label><input type="checkbox" name="e_sports" value="1"> E-sports</label>
+                        <label><input type="checkbox" name="fps" value="1"> FPS</label>
+                        <label><input type="checkbox" name="co_op" value="1"> Co-op</label>
+                        <label><input type="checkbox" name="early_access" value="1"> Early Access</label>
+                        <label><input type="checkbox" name="free_to_play" value="1"> Free To Play</label>
+                        <label><input type="checkbox" name="great_soundtrack" value="1"> Great Soundtrack</label>
+                        <label><input type="checkbox" name="atmospheric" value="1"> Atmospheric</label>
+                        <label><input type="checkbox" name="funny" value="1"> Funny</label>
+                        <label><input type="checkbox" name="story_rich" value="1"> Story Rich</label>
+                        <label><input type="checkbox" name="difficult" value="1"> Difficult</label>
+                        <label><input type="checkbox" name="sci_fi" value="1"> Sci-Fi</label>
+                        <label><input type="checkbox" name="controller" value="1"> Controller</label>
+                        <label><input type="checkbox" name="visual_novel" value="1"> Visual Novel</label>
+                        <label><input type="checkbox" name="retro" value="1"> Retro</label>
+                        <label><input type="checkbox" name="pixel_graphics" value="1"> Pixel Graphics</label>
+                        <label><input type="checkbox" name="local_co_op" value="1"> Local Co-op</label>
+                        <label><input type="checkbox" name="local_multiplayer" value="1"> Local Multiplayer</label>
+                        <label><input type="checkbox" name="sandbox" value="1"> Sandbox</label>
+                        <label><input type="checkbox" name="space" value="1"> Space</label>
+                        <label><input type="checkbox" name="war" value="1"> War</label>
+                        <label><input type="checkbox" name="vr" value="1"> VR</label>
+                    </div>
+
+                    <button type="submit">Predict Game Success</button>
+                </form>
+
+                {% if prediction_text %}
+                <div class="result-box">
+                    <h3>Prediction Result</h3>
+
+                    <p class="prediction-text">{{ prediction_text }}</p>
+
+                    <div class="probability-grid">
+                        <div>
+                            <strong>{{ successful_rate }}%</strong>
+                            <span>Success Probability</span>
+                        </div>
+
+                        <div>
+                            <strong>{{ unsuccessful_rate }}%</strong>
+                            <span>Failure Probability</span>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h4>Selected Features</h4>
+
+                        <ul>
+                            {% for key, value in selected_features.items() %}
+                                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="result-section">
+                        <h4>Selected Tags</h4>
+
+                        {% if selected_tags %}
+                            <div class="selected-tags">
+                                {% for tag in selected_tags %}
+                                    <span>{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="empty-text">No tag selected.</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="result-section">
+                        <h4>Recommendations</h4>
+
+                        <ul>
+                            {% for suggestion in suggestions %}
+                                <li>{{ suggestion }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </section>
+    </main>
+</body>
+</html>

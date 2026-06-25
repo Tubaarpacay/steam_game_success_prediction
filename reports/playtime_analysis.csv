@@ -1,0 +1,5 @@
+,average_playtime,average_playtime,average_playtime,average_playtime,average_playtime,average_playtime,average_playtime,average_playtime,median_playtime,median_playtime,median_playtime,median_playtime,median_playtime,median_playtime,median_playtime,median_playtime
+,count,mean,std,min,25%,50%,75%,max,count,mean,std,min,25%,50%,75%,max
+successful,,,,,,,,,,,,,,,,
+0,15123.0,126.84771540038352,1354.6155966349927,0.0,0.0,0.0,0.0,95245.0,15123.0,130.3245387819877,2029.2455565334449,0.0,0.0,0.0,0.0,190489.0
+1,11952.0,178.8529953145917,2288.829519328085,0.0,0.0,0.0,0.0,190625.0,11952.0,165.96126171352074,2709.4217448323,0.0,0.0,0.0,0.0,190625.0
