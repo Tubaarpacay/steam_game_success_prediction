@@ -11,15 +11,30 @@
     <main class="page">
         <section class="hero">
 
-            <div class="hero-text">
-
-                <div class="top-actions">
-                    <span class="badge">Machine Learning Project</span>
-
-                    <a href="/history" class="history-link">
-                        Prediction History
+            <aside class="hero-text">
+                <nav class="side-nav">
+                    <a href="/" class="nav-item {% if active_page == 'prediction' %}active{% endif %}">
+                        <span class="nav-icon">🎮</span>
+                        <span>Prediction</span>
                     </a>
-                </div>
+
+                    <a href="/history" class="nav-item {% if active_page == 'history' %}active{% endif %}">
+                        <span class="nav-icon">📊</span>
+                        <span>Prediction History</span>
+                    </a>
+
+                    <a href="/feature-importance" class="nav-item {% if active_page == 'feature' %}active{% endif %}">
+                        <span class="nav-icon">⭐</span>
+                        <span>Feature Importance</span>
+                    </a>
+
+                    <a href="/about" class="nav-item {% if active_page == 'about' %}active{% endif %}">
+                        <span class="nav-icon">ℹ️</span>
+                        <span>About</span>
+                    </a>
+                </nav>
+
+                <span class="badge">Machine Learning Project</span>
 
                 <h1>Steam Success Predictor</h1>
 
@@ -44,7 +59,7 @@
                         <span>Realistic Accuracy</span>
                     </div>
                 </div>
-            </div>
+            </aside>
 
             <div class="model-card">
                 <h2>Prediction Form</h2>
@@ -53,40 +68,45 @@
                     Fill in the game information below to estimate its success class.
                 </p>
 
+                {% if error_message %}
+                <div class="error-box">
+                    {{ error_message }}
+                </div>
+                {% endif %}
+
                 <form method="POST">
 
                     <h3>Basic Game Information</h3>
 
                     <div class="form-grid">
-
                         <div class="input-group">
                             <label>Price</label>
-                            <input type="number" step="any" name="price" placeholder="Example: 19.99" required>
+                            <input type="number" step="0.01" min="0" max="300" name="price" placeholder="Example: 19.99" required>
                         </div>
 
                         <div class="input-group">
                             <label>Achievements</label>
-                            <input type="number" step="any" name="achievements" placeholder="Example: 45" required>
+                            <input type="number" step="1" min="0" max="1000" name="achievements" placeholder="Example: 45" required>
                         </div>
 
                         <div class="input-group">
                             <label>Average Playtime</label>
-                            <input type="number" step="any" name="average_playtime" placeholder="Example: 1200" required>
+                            <input type="number" step="1" min="0" max="100000" name="average_playtime" placeholder="Example: 1200" required>
                         </div>
 
                         <div class="input-group">
                             <label>Median Playtime</label>
-                            <input type="number" step="any" name="median_playtime" placeholder="Example: 900" required>
+                            <input type="number" step="1" min="0" max="100000" name="median_playtime" placeholder="Example: 900" required>
                         </div>
 
                         <div class="input-group">
                             <label>Required Age</label>
-                            <input type="number" step="any" name="required_age" placeholder="Example: 0" required>
+                            <input type="number" step="1" min="0" max="18" name="required_age" placeholder="Example: 0" required>
                         </div>
 
                         <div class="input-group">
                             <label>Release Year</label>
-                            <input type="number" step="any" name="release_year" placeholder="Example: 2024" required>
+                            <input type="number" step="1" min="1997" max="2100" name="release_year" placeholder="Example: 2024" required>
                         </div>
 
                         <div class="input-group">
@@ -120,61 +140,61 @@
                                 <option value="1">Yes</option>
                             </select>
                         </div>
-
                     </div>
+
+                    <div class="form-divider"></div>
 
                     <h3>Store Page Information</h3>
 
                     <div class="form-grid">
-
                         <div class="input-group">
                             <label>Screenshot Count</label>
-                            <input type="number" step="any" name="screenshot_count" placeholder="Example: 8" required>
+                            <input type="number" step="1" min="0" max="100" name="screenshot_count" placeholder="Example: 8" required>
                         </div>
 
                         <div class="input-group">
                             <label>Movie / Trailer Count</label>
-                            <input type="number" step="any" name="movie_count" placeholder="Example: 2" required>
+                            <input type="number" step="1" min="0" max="50" name="movie_count" placeholder="Example: 2" required>
                         </div>
 
                         <div class="input-group">
                             <label>Category Count</label>
-                            <input type="number" step="any" name="category_count" placeholder="Example: 5" required>
+                            <input type="number" step="1" min="0" max="50" name="category_count" placeholder="Example: 5" required>
                         </div>
 
                         <div class="input-group">
                             <label>Genre Count</label>
-                            <input type="number" step="any" name="genre_count" placeholder="Example: 3" required>
+                            <input type="number" step="1" min="0" max="30" name="genre_count" placeholder="Example: 3" required>
                         </div>
 
                         <div class="input-group">
                             <label>Steam Tag Count</label>
-                            <input type="number" step="any" name="steamspy_tag_count" placeholder="Example: 8" required>
+                            <input type="number" step="1" min="0" max="50" name="steamspy_tag_count" placeholder="Example: 8" required>
                         </div>
 
                         <div class="input-group">
                             <label>Short Description Length</label>
-                            <input type="number" step="any" name="short_description_length" placeholder="Example: 180" required>
+                            <input type="number" step="1" min="0" max="500" name="short_description_length" placeholder="Example: 180" required>
                         </div>
 
                         <div class="input-group">
                             <label>About Game Length</label>
-                            <input type="number" step="any" name="about_game_length" placeholder="Example: 1200" required>
+                            <input type="number" step="1" min="0" max="10000" name="about_game_length" placeholder="Example: 1200" required>
                         </div>
 
                         <div class="input-group">
                             <label>Detailed Description Length</label>
-                            <input type="number" step="any" name="detailed_description_length" placeholder="Example: 1800" required>
+                            <input type="number" step="1" min="0" max="15000" name="detailed_description_length" placeholder="Example: 1800" required>
                         </div>
 
                         <div class="input-group">
                             <label>Minimum Requirements Length</label>
-                            <input type="number" step="any" name="minimum_req_length" placeholder="Example: 350" required>
+                            <input type="number" step="1" min="0" max="5000" name="minimum_req_length" placeholder="Example: 350" required>
                         </div>
 
                         <div class="input-group">
                             <label>Recommended Requirements Length</label>
-                            <input type="number" step="any" name="recommended_req_length" placeholder="Example: 300" required>
+                            <input type="number" step="1" min="0" max="5000" name="recommended_req_length" placeholder="Example: 300" required>
                         </div>
 
                         <div class="input-group">
@@ -200,8 +220,9 @@
                                 <option value="0">No</option>
                             </select>
                         </div>
-
                     </div>
+
+                    <div class="form-divider"></div>
 
                     <h3>Game Tags</h3>
 
@@ -248,35 +269,70 @@
                         <label><input type="checkbox" name="vr" value="1"> VR</label>
                     </div>
 
-                    <button type="submit">Predict Game Success</button>
+                    <button type="submit" id="predictBtn">
+                        Predict Game Success
+                    </button>
                 </form>
 
                 {% if prediction_text %}
-                <div class="result-box">
-                    <h3>Prediction Result</h3>
+                <div class="result-box result-dashboard">
+
+                    <div class="result-header">
+                        <div>
+                            <span class="badge">Prediction Result</span>
+                            <h3>Game Success Analysis</h3>
+                        </div>
+
+                        {% if prediction_label == "Successful" %}
+                            <span class="result-status success-status">🟢 SUCCESSFUL</span>
+                        {% else %}
+                            <span class="result-status danger-status">🔴 UNSUCCESSFUL</span>
+                        {% endif %}
+                    </div>
 
                     <p class="prediction-text">{{ prediction_text }}</p>
 
-                    <div class="probability-grid">
-                        <div>
-                            <strong>{{ successful_rate }}%</strong>
-                            <span>Success Probability</span>
+                    <div class="confidence-card">
+                        <div class="confidence-header">
+                            <span>Confidence Score</span>
+                            <strong>{{ confidence_score }}%</strong>
                         </div>
 
-                        <div>
-                            <strong>{{ unsuccessful_rate }}%</strong>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" data-width="{{ confidence_score }}"></div>
+                        </div>
+
+                        <small>{{ confidence_level }} Confidence</small>
+                    </div>
+
+                    <div class="result-insights-grid">
+                        <div class="insight-card">
+                            <span>Success Probability</span>
+                            <strong>{{ successful_rate }}%</strong>
+                        </div>
+
+                        <div class="insight-card">
                             <span>Failure Probability</span>
+                            <strong>{{ unsuccessful_rate }}%</strong>
+                        </div>
+
+                        <div class="insight-card">
+                            <span>Risk Level</span>
+                            <strong>{{ risk_level }}</strong>
                         </div>
                     </div>
 
                     <div class="result-section">
                         <h4>Selected Features</h4>
 
-                        <ul>
+                        <div class="selected-feature-grid">
                             {% for key, value in selected_features.items() %}
-                                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                                <div class="selected-feature-card">
+                                    <span>{{ key }}</span>
+                                    <strong>{{ value }}</strong>
+                                </div>
                             {% endfor %}
-                        </ul>
+                        </div>
                     </div>
 
                     <div class="result-section">
@@ -302,11 +358,75 @@
                             {% endfor %}
                         </ul>
                     </div>
+
                 </div>
                 {% endif %}
 
             </div>
         </section>
     </main>
+
+    <script>
+        const numberInputs = document.querySelectorAll('input[type="number"]');
+        const predictBtn = document.getElementById("predictBtn");
+
+        function updateButtonState() {
+            const hasError = document.querySelectorAll(".input-error").length > 0;
+            predictBtn.disabled = hasError;
+        }
+
+        numberInputs.forEach(input => {
+            const parent = input.parentNode;
+            const label = parent.querySelector("label");
+
+            const message = document.createElement("span");
+            message.className = "validation-message";
+            parent.appendChild(message);
+
+            input.addEventListener("input", () => {
+                const value = Number(input.value);
+                const min = Number(input.min);
+                const max = Number(input.max);
+
+                input.classList.remove("input-error", "input-success", "shake");
+                label.classList.remove("label-error", "label-success");
+                message.classList.remove("active", "success");
+                message.textContent = "";
+
+                if (input.value === "") {
+                    updateButtonState();
+                    return;
+                }
+
+                if (input.min !== "" && value < min) {
+                    input.classList.add("input-error", "shake");
+                    label.classList.add("label-error");
+                    message.classList.add("active");
+                    message.textContent = `⚠ Minimum value: ${min}`;
+                    updateButtonState();
+                    return;
+                }
+
+                if (input.max !== "" && value > max) {
+                    input.classList.add("input-error", "shake");
+                    label.classList.add("label-error");
+                    message.classList.add("active");
+                    message.textContent = `⚠ Maximum value: ${max}`;
+                    updateButtonState();
+                    return;
+                }
+
+                updateButtonState();
+            });
+        });
+
+        updateButtonState();
+
+        const confidenceFill = document.querySelector(".confidence-fill");
+
+        if (confidenceFill) {
+            confidenceFill.style.width = confidenceFill.dataset.width + "%";
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main class="page">
+        <section class="history-card">
+
+            <div class="history-header">
+                <div>
+                    <span class="badge">Project Overview</span>
+                    <h1>About Steam Success Predictor</h1>
+                    <p>
+                        This project predicts whether a Steam game is likely to be successful
+                        by using machine learning and game metadata.
+                    </p>
+                </div>
+
+                <div class="history-actions">
+                    <a href="/" class="back-link">← Predictor</a>
+                    <a href="/feature-importance" class="back-link">Feature Importance</a>
+                </div>
+            </div>
+
+            <div class="about-grid">
+
+                <div class="about-card">
+                    <h3>🎯 Project Goal</h3>
+                    <p>
+                        The goal of this project is to estimate the success potential of Steam games
+                        using store page information, playtime statistics, game tags and platform data.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h3>🧠 Machine Learning Model</h3>
+                    <p>
+                        A Random Forest classification model is used to predict whether a game belongs
+                        to the successful or unsuccessful class.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h3>📊 Dataset</h3>
+                    <p>
+                        The project uses Steam game data and SteamSpy tag features. The dataset includes
+                        game metadata, ratings, playtime values, platform support and tag-based features.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h3>⚙️ Technologies</h3>
+                    <p>
+                        Python, Flask, PostgreSQL, SQLAlchemy, Pandas, Scikit-learn, HTML, CSS and JavaScript
+                        were used during the development process.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h3>🔍 Explainability</h3>
+                    <p>
+                        The Feature Importance page shows which variables have the strongest impact on
+                        the model's predictions.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h3>🗄 Prediction History</h3>
+                    <p>
+                        Each prediction is saved in a PostgreSQL database. Users can view previous
+                        predictions, success probabilities and selected tags.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+</body>
+</html>

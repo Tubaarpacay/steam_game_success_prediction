@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Importance</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<main class="page">
+
+<section class="history-card">
+
+    <div class="history-header">
+
+        <div>
+            <span class="badge">Random Forest Model</span>
+
+            <h1>Feature Importance</h1>
+
+            <p>
+                Explore which game characteristics have the greatest influence on
+                the prediction model. Bar lengths are scaled relative to the most
+                important feature.
+            </p>
+        </div>
+
+        <div class="history-actions">
+            <a href="/" class="back-link">← Predictor</a>
+            <a href="/history" class="back-link">History</a>
+        </div>
+
+    </div>
+
+    <div class="history-stats">
+
+        <div class="history-stat-card">
+            <span>Total Features</span>
+            <strong>{{ feature_names|length }}</strong>
+        </div>
+
+        <div class="history-stat-card">
+            <span>Algorithm</span>
+            <strong>Random Forest</strong>
+        </div>
+
+        <div class="history-stat-card">
+            <span>Accuracy</span>
+            <strong>68%</strong>
+        </div>
+
+        <div class="history-stat-card">
+            <span>Top Feature</span>
+            <strong>{{ feature_names[0] }}</strong>
+        </div>
+
+    </div>
+
+    <div class="feature-toolbar">
+        <input
+            type="text"
+            id="featureSearch"
+            class="feature-search"
+            placeholder="Search feature...">
+    </div>
+
+    <div class="importance-list">
+
+        {% for name in feature_names %}
+
+        <div
+            class="importance-item
+            {% if feature_values[loop.index0] == 0 %}zero-importance{% endif %}
+            {% if loop.index > 12 %}hidden-feature{% endif %}"
+            data-feature-name="{{ name|lower }}">
+
+            <div class="importance-info">
+                <span>{{ loop.index }}. {{ name }}</span>
+                <strong>{{ "%.2f"|format(feature_values[loop.index0] * 100) }}%</strong>
+            </div>
+
+            <div class="importance-bar">
+                <div
+                    class="importance-fill"
+                    data-width="{{ relative_values[loop.index0] }}">
+                </div>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% if feature_names|length > 12 %}
+    <div class="show-more-wrapper">
+        <button type="button" class="show-more-btn" id="showMoreBtn">
+            Show More Features
+        </button>
+    </div>
+    {% endif %}
+
+</section>
+
+</main>
+
+<script>
+    const bars = document.querySelectorAll(".importance-fill");
+
+    bars.forEach(bar => {
+        bar.style.width = bar.dataset.width + "%";
+    });
+
+    const searchInput = document.getElementById("featureSearch");
+    const featureCards = document.querySelectorAll(".importance-item");
+    const button = document.getElementById("showMoreBtn");
+
+    if (searchInput) {
+        searchInput.addEventListener("input", () => {
+            const keyword = searchInput.value.toLowerCase().trim();
+
+            featureCards.forEach(card => {
+                const featureName = card.dataset.featureName;
+
+                if (featureName.includes(keyword)) {
+                    card.classList.remove("search-hidden");
+                } else {
+                    card.classList.add("search-hidden");
+                }
+            });
+        });
+    }
+
+    if (button) {
+        button.addEventListener("click", () => {
+            document
+                .querySelectorAll(".hidden-feature")
+                .forEach(card => {
+                    card.classList.toggle("show-feature");
+                });
+
+            if (button.innerText === "Show More Features") {
+                button.innerText = "Show Less Features";
+            } else {
+                button.innerText = "Show More Features";
+            }
+        });
+    }
+</script>
+
+</body>
+
+</html>

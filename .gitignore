@@ -2,3 +2,8 @@ models/steam_success_model.pkl
 data/processed/steam_merged.csv
 data/raw/steam_description_data.csv
 data/raw/steam_media_data.csv
+
+.env
+.venv/
+__pycache__/
+*.pyc

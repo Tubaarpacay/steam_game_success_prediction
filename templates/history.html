@@ -30,6 +30,44 @@
                 </div>
             </div>
 
+            <div class="history-stats">
+                <div class="history-stat-card">
+                    <span>Total Predictions</span>
+                    <strong>{{ total_predictions }}</strong>
+                </div>
+
+                <div class="history-stat-card">
+                    <span>Successful</span>
+                    <strong>{{ successful_predictions }}</strong>
+                </div>
+
+                <div class="history-stat-card">
+                    <span>Unsuccessful</span>
+                    <strong>{{ unsuccessful_predictions }}</strong>
+                </div>
+
+                <div class="history-stat-card">
+                    <span>Average Success Rate</span>
+                    <strong>{{ average_success_rate }}%</strong>
+                </div>
+            </div>
+
+            <div class="history-toolbar">
+                <input
+                    type="text"
+                    id="historySearch"
+                    class="history-search"
+                    placeholder="Search by prediction, year, tag or value..."
+                    onkeyup="filterHistoryTable()"
+                >
+
+                <select id="historyFilter" class="history-filter" onchange="filterHistoryTable()">
+                    <option value="all">All</option>
+                    <option value="successful">Successful</option>
+                    <option value="unsuccessful">Unsuccessful</option>
+                </select>
+            </div>
+
             <div class="table-wrapper">
                 <table class="history-table">
                     <thead>
@@ -48,8 +86,8 @@
 
                     <tbody>
                         {% for p in predictions %}
-                        <tr>
-                            <td>{{ p.created_at }}</td>
+                        <tr data-prediction="{{ p.prediction | lower }}">
+                            <td>{{ p.created_at.strftime('%d %b %Y, %H:%M') }}</td>
 
                             <td>
                                 <span class="status-badge">{{ p.prediction }}</span>
@@ -84,5 +122,51 @@
 
         </section>
     </main>
+
+    <script>
+    function filterHistoryTable() {
+        const searchInput = document.getElementById("historySearch");
+        const filterSelect = document.getElementById("historyFilter");
+
+        const searchValue = searchInput.value.toLowerCase();
+        const filterValue = filterSelect.value;
+
+        const rows = document.querySelectorAll(".history-table tbody tr");
+
+        rows.forEach(row => {
+            const prediction = row.dataset.prediction;
+            const searchableCells = row.querySelectorAll("td:not(:last-child)");
+
+            searchableCells.forEach(cell => {
+                cell.innerHTML = cell.textContent;
+            });
+
+            const rowText = row.textContent.toLowerCase();
+
+            const matchesSearch = rowText.includes(searchValue);
+            const matchesFilter =
+                filterValue === "all" ||
+                prediction === filterValue;
+
+            if (matchesSearch && matchesFilter) {
+                row.style.display = "";
+
+                if (searchValue.length > 0) {
+                    searchableCells.forEach(cell => {
+                        const originalText = cell.textContent;
+                        const regex = new RegExp(`(${searchValue})`, "gi");
+
+                        cell.innerHTML = originalText.replace(
+                            regex,
+                            '<mark class="search-highlight">$1</mark>'
+                        );
+                    });
+                }
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+</script>
 </body>
 </html>
