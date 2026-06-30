@@ -6,4 +6,4 @@ data/raw/steam_media_data.csv
 .env
 .venv/
 __pycache__/
-*.pyc
+*.pyc.DS_Store
