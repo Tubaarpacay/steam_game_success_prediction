@@ -76,6 +76,10 @@ class Prediction(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
 
+with app.app_context():
+    db.create_all()
+
+
 def get_form_data():
     data = {}
 
@@ -413,7 +417,4 @@ def about():
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-
     app.run()
