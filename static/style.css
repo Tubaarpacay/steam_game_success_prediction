@@ -617,6 +617,21 @@ button:hover {
     border: 1px solid rgba(125, 211, 252, 0.2);
     transition: 0.2s ease;
 }
+@media (max-width: 800px) {
+    .importance-list {
+        grid-template-columns: 1fr;
+    }
+
+    .importance-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .importance-info span {
+        max-width: 100%;
+    }
+}
 
 .importance-item:hover {
     transform: translateY(-2px);
